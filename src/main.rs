@@ -3,6 +3,7 @@
 use axum::{response::Html, routing::get, Router, ServiceExt};
 use tokio::net::TcpListener;
 
+// ╾──────────────────────────────╼ MAIN ╾───────────────────────────╼
 #[tokio::main]
 async fn main() {
     let routes_hello =
