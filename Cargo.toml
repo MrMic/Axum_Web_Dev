@@ -2,3 +2,27 @@
 name = "rust-axum-web"
 version = "0.1.0"
 edition = "2021"
+authors = ["Michaël CHLON"]
+license = "MIT OR Apache-2.0"
+description = "Rust Axum Practice"
+homepage = ""
+repository = ""
+
+[workspace.lints.rust]
+unsafe_code = "forbid"
+unused = "allow"       # For experimental dev.
+
+[lints]
+workspace = true
+
+[dependencies]
+# -- Async --
+tokio = { version = "1.37.0", features = ["full"] }
+# -- Serde --
+# -- Web --
+axum = "0.7.5"
+# -- Others --
+
+
+[dev-dependencies]
+anyhow = "1.0.81"
