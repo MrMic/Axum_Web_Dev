@@ -1,3 +1,6 @@
-# Get hello
+# Get hello "World"
 GET http://localhost:8080/hello
-HTTP 200
+
+
+# Get hello "Mic"
+GET http://localhost:8080/hello?name=Mic
