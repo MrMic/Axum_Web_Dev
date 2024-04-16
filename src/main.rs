@@ -1,8 +1,11 @@
 #![allow(unused)] // For beginning only.
 
+pub use self::error::{Error, Result};
+
 use axum::{
 	extract::{Path, Query},
-	response::{Html, IntoResponse},
+	middleware,
+	response::{Html, IntoResponse, Response},
 	routing::{get, get_service},
 	Router, ServiceExt,
 };
@@ -10,11 +13,16 @@ use serde::Deserialize;
 use tokio::net::TcpListener;
 use tower_http::services::ServeDir;
 
-// ╾──────────────────────────────╼ MAIN ╾───────────────────────────╼
+mod error;
+mod web;
+
+// NOTE: ╾──────────────────────────────╼ MAIN ╾───────────────────────────╼
 #[tokio::main]
 async fn main() {
 	let routes_all = Router::new()
 		.merge(routes_hello())
+		.merge(web::routes_login::routes())
+		.layer(middleware::map_response(main_response_mapper))
 		.fallback_service(routes_static());
 
 	// ╾──────────────────────────╼ START SERVER ╾───────────────────────╼
@@ -27,7 +35,14 @@ async fn main() {
 	// Ok(())
 }
 
-// ═══════════════════════════════ ROUTES ════════════════════════════
+async fn main_response_mapper(res: Response) -> Response {
+	println!("->> {:<12} - main_response_mapper", "RES_MAPPER");
+
+	println!();
+	res
+}
+
+// NOTE: ═══════════════════════════════ ROUTES ════════════════════════════
 fn routes_static() -> Router {
 	Router::new().nest_service("/", get_service(ServeDir::new("./")))
 }
@@ -45,6 +60,7 @@ struct HelloParams {
 	name: Option<String>,
 }
 
+// NOTE: ═══════════════════════════════ HANDLERS ════════════════════════
 // e.g., `/hello/?name=Mic`
 async fn handler_hello(Query(params): Query<HelloParams>) -> impl IntoResponse {
 	println!("->> {:<12} - handler_hello {params:?}", "HANDLER");
