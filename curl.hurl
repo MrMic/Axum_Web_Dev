@@ -6,3 +6,12 @@ GET http://localhost:8080/hello?name=Mic
 
 # Get hello "Mike"
 GET http://localhost:8080/hello2/Mike
+
+# POST /api/login
+POST http://localhost:8080/api/login
+
+{
+  "username": "demo1",
+  "pwd": "welcome"
+}
+
