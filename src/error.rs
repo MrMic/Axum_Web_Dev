@@ -3,11 +3,15 @@ use axum::{
 	response::{IntoResponse, Response},
 };
 
+// NOTE: ___________________________ VARIABLES ___________________________
 pub type Result<T> = std::result::Result<T, Error>;
 
 #[derive(Debug)]
 pub enum Error {
 	LoginFail,
+
+	// Model errors
+	TicketDeleteFailIdNotFound { id: u64 },
 }
 
 // HACK: _______________________ Error Boilerplate _______________________
