@@ -1,6 +1,15 @@
 #![allow(unused)] // For beginning only.
 
+/*
+ *             ┌──────────┐        ┌───────────────────┐
+ *             │axum:serve├──────► │routes_all (Router)│
+ *             └──────────┘        └───────────────────┘
+ *
+ */
+
 pub use self::error::{Error, Result};
+
+use crate::model::ModelController;
 
 use axum::{
 	extract::{Path, Query},
@@ -20,11 +29,15 @@ mod web;
 
 // NOTE: ╾──────────────────────────────╼ MAIN ╾───────────────────────────╼
 #[tokio::main]
-async fn main() {
+async fn main() -> Result<()> {
+	// ╾──────────────────────────╼ SETUP ╾───────────────────────╼
+	let mc = ModelController::new().await?;
+
 	let routes_all = Router::new()
 		.merge(routes_hello())
 		.merge(web::routes_login::routes())
 		.layer(middleware::map_response(main_response_mapper))
+		.nest("/api", web::routes_tickets::routes(mc.clone()))
 		.layer(CookieManagerLayer::new())
 		.fallback_service(routes_static());
 
@@ -35,7 +48,7 @@ async fn main() {
 		.await
 		.unwrap();
 
-	// Ok(())
+	Ok(())
 }
 
 async fn main_response_mapper(res: Response) -> Response {
