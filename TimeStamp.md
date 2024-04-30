@@ -5,3 +5,6 @@
 => 21:55
 => 24:32
 => 27:07
+=> 32:30 CRUD - REST API
+=> 34:45 CReation of our Routers
+=> 39:17 BUG: routes_tickets à revoir
