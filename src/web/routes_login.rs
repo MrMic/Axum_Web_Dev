@@ -4,6 +4,7 @@ use serde_json::{json, Value};
 use tower_cookies::{Cookie, Cookies};
 
 use crate::{web, Error, Result};
+
 // NOTE: ════════════════════════════════ ROUTES ════════════════════════════
 pub fn routes() -> Router {
 	Router::new().route("/api/login", post(api_login))
