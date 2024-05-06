@@ -1,0 +1,18 @@
+meta {
+  name: POST Login into API
+  type: http
+  seq: 2
+}
+
+post {
+  url: {{baseURL}}/api/login
+  body: json
+  auth: none
+}
+
+body:json {
+  {
+    "username": "demo1",
+    "pwd": "welcome"
+  }
+}
