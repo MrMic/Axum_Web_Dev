@@ -19,10 +19,11 @@ async fn quick_dev() -> Result<()> {
             "pwd": "welcome"
         }),
     );
-    // HACK: Comment for testing requiired authentification
+    // HACK: Comment for testing required authentification
     req_login.await?.print().await?;
 
     // hc.do_get("/hello2/Mike").await?.print().await?;
+
     let req_create_ticket = hc.do_post(
         "/api/tickets",
         json!({

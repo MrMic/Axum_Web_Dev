@@ -7,35 +7,35 @@ use crate::{web, Error, Result};
 
 // NOTE: ════════════════════════════════ ROUTES ════════════════════════════
 pub fn routes() -> Router {
-	Router::new().route("/api/login", post(api_login))
+    Router::new().route("/api/login", post(api_login))
 }
 
 // NOTE: ═══════════════════════════════ HANDLERS ════════════════════════
 async fn api_login(cookies: Cookies, payload: Json<LoginPayload>) -> Result<Json<Value>> {
-	println!("->> {:<12} - api_login {payload:?}", "HANDLER");
+    println!("->> {:<12} - api_login {payload:?}", "HANDLER");
 
-	// TODO: Implement real db/auth logic
-	if payload.username != "demo1" || payload.pwd != "welcome" {
-		return Err(Error::LoginFail);
-	}
+    // TODO: Implement real db/auth logic
+    if payload.username != "demo1" || payload.pwd != "welcome" {
+        return Err(Error::LoginFail);
+    }
 
-	// FIXME: Implement a real auth token generation/signature.
-	cookies.add(Cookie::new(web::AUTH_TOKEN, "user-1.exp.sign"));
+    // FIXME: Implement a real auth token generation/signature.
+    cookies.add(Cookie::new(web::AUTH_TOKEN, "user-1.exp.sign"));
 
-	// Create the success body.
-	let body = Json(json!({
-		"result": {
-			"success": true
-		}
-	}
-	));
+    // Create the success body.
+    let body = Json(json!({
+        "result": {
+            "success": true
+        }
+    }
+    ));
 
-	Ok(body)
+    Ok(body)
 } // (Json<LoginPayload>)
 
 // ______________________________________________________________________
 #[derive(Debug, Deserialize)]
 struct LoginPayload {
-	username: String,
-	pwd: String,
+    username: String,
+    pwd: String,
 }
