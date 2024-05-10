@@ -1,0 +1,17 @@
+meta {
+  name: POST Create Ticket*
+  type: http
+  seq: 3
+}
+
+post {
+  url: {{baseURL}}/api/tickets
+  body: json
+  auth: none
+}
+
+body:json {
+  {
+    "title": "Ticket BBB"
+  }
+}
