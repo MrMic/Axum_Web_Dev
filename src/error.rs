@@ -2,16 +2,18 @@ use axum::{
     http::StatusCode,
     response::{IntoResponse, Response},
 };
+use serde::Serialize;
 
 // NOTE: ___________________________ VARIABLES ___________________________
 pub type Result<T> = std::result::Result<T, Error>;
 
-#[derive(Debug)]
+#[derive(Clone, Debug, Serialize)]
 pub enum Error {
     LoginFail,
     // Auth errors.
     AuthFailNoAuthTokenCookie,
     AuthFailTokenWrongFormat,
+    AuthFailCtxNotInRequestExt,
 
     // Model errors
     TicketDeleteFailIdNotFound { id: u64 },

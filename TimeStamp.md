@@ -10,8 +10,10 @@
 => 34:45 CReation of our Routers
 => 39:17 BUG: routes_tickets à revoir
 => 40:12 First Middleware - mw_require_auth
-=> 42:21 
+=> 42:21
 => 45:52
 => 49:13
 => 54:01
 => 56:29
+=> 58:31
+=> 1:04:39
