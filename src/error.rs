@@ -8,6 +8,7 @@ use serde::Serialize;
 pub type Result<T> = std::result::Result<T, Error>;
 
 #[derive(Clone, Debug, Serialize, strum_macros::AsRefStr)]
+#[serde(tag = "type", content = "data")]
 pub enum Error {
     LoginFail,
     // Auth errors.
@@ -69,6 +70,7 @@ impl Error {
     }
 }
 
+// * NOTE: ___________________________ VARIABLES ___________________________
 #[derive(Debug, strum_macros::AsRefStr)]
 #[allow(non_camel_case_types)]
 pub enum ClientError {
